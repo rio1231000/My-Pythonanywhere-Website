@@ -10,8 +10,16 @@ class HomePageTest(TestCase):
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/lists/')  
         self.assertEqual(found.func, lists)
+        
+    def test_uses_home_template(self):
+        response = self.client.get('/lists/')
+        self.assertTemplateUsed(response, 'home.html')
 
-{'''
+    def test_can_save_a_POST_request(self):
+        response = self.client.post('/lists/', data={'item_text': 'A new list item'})
+        self.assertIn('A new list item', response.content.decode())
+        self.assertTemplateUsed(response, 'home.html')
+'''
     def test_home_page_returns_correct_html1(self):
         request = HttpRequest()
         response = lists(request)
@@ -32,8 +40,5 @@ class HomePageTest(TestCase):
         self.assertTemplateUsed(response, 'home.html')
 
         self.assertTemplateUsed(response, 'wrong.html')
-'''}
+'''
 
-    def test_uses_home_template(self):
-        response = self.client.get('/lists/')
-        self.assertTemplateUsed(response, 'home.html')
