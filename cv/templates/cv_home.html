@@ -1,0 +1,74 @@
+
+<html>
+    <head>
+        <title>Rio's cv</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+    	<div>
+    		<h1>LingKi Chan</h1>
+    	</div>
+    	<div>
+    		<h1>Intro</h1>
+            I am Rio, i am a student studying computer science in the university of birmingham. I love programming.
+    	</div>
+        <div>
+        	<h1>Education</h1>
+            <table id="id_education_table">
+                {% for education in educations %}
+                    <tr><td><strong>{{ education.program_title }}</strong></td></tr>
+                    <tr><td>@{{ education.organization }}</td></tr>
+                    <tr><td>{{ education.program_desc }}</tr></td>
+                    <tr><td>From {{ education.start_date_without_time }} to {% if education.finish_date %}
+                                                                {{education.finish_date_without_time}}
+                                                            {% else %}
+                                                                Now
+                                                            {% endif %}</tr></td>
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+            <table><tr><td>
+        	<h1>Work experience</h1></td>
+            {% if user.is_authenticated %}
+                 <td><a id="add_workExperience"class="btn btn-default" href="{% url 'addWorkExperience' %}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            {% endif %}</tr></table>
+            <table id="id_workExperience_table">
+                {% for workExperience in workExperiences %}
+                    <tr><td><strong>{{ workExperience.job_title }}</strong></td></tr>
+                    <tr><td>@{{ workExperience.company }}</tr></td>
+                    <tr><td>{{ workExperience.job_desc }}</tr></td>
+                    <tr><td>From {{ workExperience.start_date_without_time }} to {% if workExperience.finish_date %}
+                                                                {{workExperience.finish_date_without_time}}
+                                                            {% else %}
+                                                                Now
+                                                            {% endif %}</tr></td>
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+        	<h1>Skill</h1>
+            <table id="id_skill_table">
+                {% for skill in skills %}
+                    <tr><td>{{ forloop.counter }}: {{ skill.skill_title }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+        	<h1>Achievement</h1>
+            <table id="id_achievement_table">
+                {% for achievement in achievements %}
+                    <tr><td>{{ forloop.counter }}: {{ achievement.achievement_title }} @ {{ achievement.achieve_date }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+            {% if not user.is_authenticated %}
+                <a id='login' href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+            {% endif %}
+        </div>
+    </body>
+
+</html>
