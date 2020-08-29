@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Welcome to my website</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            div.page-header{
+              text-align: center;
+            }
+            div.col-sm-4{
+                  width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page-header">
+            {% if user.is_authenticated %}
+                
+            {% else %}
+                <a href="{% url 'login' %}" class="top-menu"><button>login</button></a>
+            {% endif %}
+            <h1>LingKi Chan's website</h1>
+        </div>
+
+        <div class="container text-center">    
+          <h3>MY applications</h3><br>
+            <div class="col-sm-4">
+               <a href="{% url 'post_list' %}" class="top-menu"><button type="button" class="btn btn-primary btn-lg btn-block">blog</button></a>  
+               <br>
+               <a href="{% url 'lists' %}" class="top-menu"><button type="button" class="btn btn-primary btn-lg btn-block">lists</button></a>
+               <br>
+               <a href="{% url 'cv' %}" class="top-menu"><button type="button" class="btn btn-primary btn-lg btn-block">cv</button></a>
+
+            </div>
+        </div><br>
+    </body>
+</html>
